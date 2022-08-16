@@ -1,4 +1,4 @@
-apiVersion: v2
+
 name: ealenn/echo-server
-type: application
+
 version: 0.1.0
