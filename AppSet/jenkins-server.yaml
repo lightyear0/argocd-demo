@@ -1,29 +1,26 @@
 apiVersion: argoproj.io/v1alpha1
 kind: ApplicationSet
 metadata:
-  name: guestbook
+  name: jenkins-server
 spec:
   generators:
   - list:
       elements:
       - cluster: engineering-dev
         url: https://kubernetes.default.svc
-        namespace: guestbook-001
-      - cluster: engineering-prod
+        namespace: jenkins-001
+      - cluster: backend-preprod
         url: https://kubernetes.default.svc
-        namespace: guestbook-002
-      - cluster: finance-preprod
-        url: https://kubernetes.default.svc
-        namespace: guestbook-003
+        namespace: jenkins-003
   template:
     metadata:
-      name: '{{cluster}}-guestbook'
+      name: '{{cluster}}-echo-server'
     spec:
       project: default
       source:
-        repoURL: https://github.com/argoproj/argo-cd.git
+        repoURL: https://github.com/lightyear0/argocd-demo.git
         targetRevision: HEAD
-        path: applicationset/examples/list-generator/guestbook/{{cluster}}
+        path: helm/jenkins-server
       destination:
         server: '{{url}}'
         namespace: '{{namespace}}'

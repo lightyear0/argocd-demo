@@ -1,0 +1,23 @@
+name: actions-backend-eks
+
+on:
+  push:
+    branches: [ main ]
+    paths: .github/workflows/actions-backend-eks.yml
+  pull_request:
+    branches:  none # [ main ]
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    name: Deploy
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v1
+      - uses: actions-hub/kubectl@master
+        env:
+          KUBE_CONFIG: ${{ secrets.KUBE_CONFIG }}
+        with:
+          args: apply -f AppsSet/jenkins-server.yaml -n argocd
