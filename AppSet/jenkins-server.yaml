@@ -14,13 +14,13 @@ spec:
         namespace: jenkins-003
   template:
     metadata:
-      name: '{{cluster}}-echo-server'
+      name: '{{cluster}}-jenkins-server'
     spec:
       project: default
       source:
         repoURL: https://github.com/lightyear0/argocd-demo.git
         targetRevision: HEAD
-        path: helm/jenkins-server
+        path: helm/jenkins
       destination:
         server: '{{url}}'
         namespace: '{{namespace}}'
